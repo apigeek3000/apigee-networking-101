@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="hello-world">
+  <DisplayName>Hello World</DisplayName>
+  <Description>An example API proxy.</Description>
+  <CreatedAt>1706555795962</CreatedAt>
+  <LastModifiedAt>1706555795962</LastModifiedAt>
+  <BasePaths>/v1/hello-world</BasePaths>
+  <ProxyEndpoints>
+    <ProxyEndpoint>default</ProxyEndpoint>
+  </ProxyEndpoints>
+  <TargetEndpoints>
+    <TargetEndpoint>default</TargetEndpoint>
+  </TargetEndpoints>
+</APIProxy>
