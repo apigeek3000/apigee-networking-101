@@ -40,7 +40,7 @@ export PATH=$PATH:$HOME/.apigeecli/bin
 echo "Deploying Apigee artifacts..."
 
 echo "Creating and Deploying Apigee hello-world proxy..."
-REV=$(apigeecli apis create bundle -f apiproxy -n hello-world --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
+REV=$(apigeecli apis create bundle -f ./../../apiproxy -n hello-world --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
 apigeecli apis deploy --wait --name hello-world --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN"
 
 # var is expected by integration test (apickli)
