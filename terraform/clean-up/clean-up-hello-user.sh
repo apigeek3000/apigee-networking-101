@@ -40,9 +40,9 @@ echo "Installing apigeecli"
 curl -s https://raw.githubusercontent.com/apigee/apigeecli/main/downloadLatest.sh | bash
 export PATH=$PATH:$HOME/.apigeecli/bin
 
-echo "Undeploying proxy sample-cors"
-REV=$(apigeecli envs deployments get --env "$APIGEE_ENV" --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'deployments[]| select(.apiProxy=="sample-cors").revision' -r)
-apigeecli apis undeploy --name sample-cors --env "$APIGEE_ENV" --rev "$REV" --org "$PROJECT" --token "$TOKEN"
+echo "Undeploying proxy hello-user"
+REV=$(apigeecli envs deployments get --env "$APIGEE_ENV" --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'deployments[]| select(.apiProxy=="hello-user").revision' -r)
+apigeecli apis undeploy --name hello-user --env "$APIGEE_ENV" --rev "$REV" --org "$PROJECT" --token "$TOKEN"
 
-echo "Deleting proxy sample-cors"
-apigeecli apis delete --name sample-cors --org "$PROJECT" --token "$TOKEN"
+echo "Deleting proxy hello-user"
+apigeecli apis delete --name hello-user --org "$PROJECT" --token "$TOKEN"

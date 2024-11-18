@@ -12,7 +12,7 @@ This includes deployment scripts for an Apigee PayG org with various methods of 
 
 ## Setup instructions
 
-1. Clone the apigee-samples repo, and switch to the cors directory
+1. Clone the this repo to your machine
 
 ```bash
 git clone https://github.com/apigeek3000/apigee-networking-101.git
@@ -38,14 +38,14 @@ source ./env.sh
 
 ## Deploy Apigee Organization
 
-# Deploy Networking components
+## Deploy Networking components
 
 ## Deploy Apigee components
 
-Next, let's deploy our hello-world proxy. This proxy will include one `hello-world` proxy.
+Next, let's deploy our hello-user proxy. This proxy will include one `hello-user` proxy.
 
 ```bash
-./deploy-hello-world.sh
+./terraform/deploy/deploy-hello-user.sh
 ```
 
 ## Conclusion & Cleanup
@@ -56,5 +56,5 @@ To clean up the artifacts created run the following to delete your sample Apigee
 
 ```bash
 source ./env.sh
-./clean-up-hello-world.sh
+./terraform/clean-up/clean-up-hello-user.sh
 ```
