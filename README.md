@@ -38,7 +38,13 @@ source ./env.sh
 
 ## Deploy Apigee Organization
 
-## Deploy Networking components
+To deploy Apigee X with only a baic internal ip endpoint, follow the [x-basic](https://github.com/apigee/terraform-modules/tree/main/samples/x-basic) guide
+
+You may find it easier to test Apigee with an external HTTPS endpoint. Follow one of the following guides if that's the case:
+- [x-l7xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-l7xlb)
+- [x-nb-psc-xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-nb-psc-xlb)
+
+## Deploy other Networking components
 
 ## Deploy Apigee components
 
@@ -46,6 +52,12 @@ Next, let's deploy our hello-user proxy. This proxy will include one `hello-user
 
 ```bash
 ./terraform/deploy/deploy-hello-user.sh
+```
+
+To test the API call to the following API, https://{{API hostname}}/v1/hello-user, and substitute in your own API hostname or use the following curl command
+
+```bash
+curl -X GET "https://{{API hostname}}/v1/hello-user"
 ```
 
 ## Conclusion & Cleanup
