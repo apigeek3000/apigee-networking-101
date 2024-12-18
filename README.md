@@ -38,13 +38,23 @@ source ./env.sh
 
 ## Deploy Apigee Organization
 
-To deploy Apigee X with only a baic internal ip endpoint, follow the [x-basic](https://github.com/apigee/terraform-modules/tree/main/samples/x-basic) guide
+To deploy Apigee X with only a basic internal ip endpoint, follow the [x-basic](https://github.com/apigee/terraform-modules/tree/main/samples/x-basic) guide
 
 You may find it easier to test Apigee with an external HTTPS endpoint. Follow one of the following guides if that's the case:
 - [x-l7xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-l7xlb)
 - [x-nb-psc-xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-nb-psc-xlb)
 
 ## Deploy other Networking components
+
+To deploy networking components together with Apigee (all but the API Proxy), follow this process:
+1. Create a project in GCP, if not already created. Reference if needed [Creating and managing projects ](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+2. Set values in terraform.tfvars. project-id is the only value that needs to change to match the ID of the project created in step 1. Reference if needed for how to find project ID, see [Find the project name, number, and ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects)
+3. At the command prompt where you'll run the script, in the Terraform directory, run:
+  * `terraform init`
+  * `terraform plan`
+  * `terraform apply -auto-approve`
+4. Wait ~35-40 minutes for the script to complete and then mvoe to the next section. 
+
 
 ## Deploy Apigee components
 
