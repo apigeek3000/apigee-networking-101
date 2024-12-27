@@ -22,6 +22,7 @@ git clone https://github.com/apigeek3000/apigee-networking-101.git
 
 ```sh
 gcloud auth login
+gcloud auth application-default login
 ```
 
 3. Edit the `env.sh` and configure the ENV vars

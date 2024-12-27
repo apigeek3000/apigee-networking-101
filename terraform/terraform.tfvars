@@ -22,21 +22,13 @@ apigee_instances = {
   usc1-instance = {
     region       = "us-central1"
     ip_range     = "10.0.0.0/22"
-    environments = ["test1", "test2"]
+    environments = ["test"]
   }
 }
 
 apigee_environments = {
-  test1 = {
-    display_name = "Test 1"
-    description  = "Environment created by apigee/terraform-modules"
-    node_config  = null
-    iam          = null
-    envgroups    = ["test"]
-    type         = null
-  }
-  test2 = {
-    display_name = "Test 2"
+  test = {
+    display_name = "Test"
     description  = "Environment created by apigee/terraform-modules"
     node_config  = null
     iam          = null
@@ -49,7 +41,7 @@ apigee_environments = {
 # must add a domain here, though only nip.io domain will be used, so doesn't matter what you add here
 apigee_envgroups = {
   test = {
-    hostnames = ["apigeepub1.krgcplab.org"]  
+    hostnames = ["example.com"]  
   }
 }
 
