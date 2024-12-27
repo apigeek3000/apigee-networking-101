@@ -79,6 +79,7 @@ Go to Network Services > Load Balancing and select the load balancer named "apig
 
 To test, go to: 
 https://<domain>/hello-world
+
 Example: 
 https://34-117-214-37.nip.io/hello-world
 
