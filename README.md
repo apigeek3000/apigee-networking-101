@@ -98,4 +98,4 @@ source ./env.sh
 At the command prompt in the Terraform directory, run:
 `terraform destroy -auto-approve`
 
-Wait ~30 minutes for the components create by the Terraform script to be removed. 
+Wait ~15-25 minutes for the components created by the Terraform script to be removed. You'll see a message similar to "Destroy complete!" 
