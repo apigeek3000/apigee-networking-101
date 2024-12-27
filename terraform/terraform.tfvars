@@ -16,6 +16,9 @@
 
 project_id = ""
 
+# No need to change settings below. Changing will customize the setup. 
+# Full testing has not been done on customization, so if you customize and encounter errors, please report them and the suggestion is to return to values provided to get the script working.  
+
 ax_region = "us-central1"
 
 apigee_instances = {
@@ -49,7 +52,7 @@ apigee_environments = {
 # must add a domain here, though only nip.io domain will be used, so doesn't matter what you add here
 apigee_envgroups = {
   test = {
-    hostnames = ["apigeepub1.krgcplab.org"]  
+    hostnames = ["www.example543.com"]  
   }
 }
 
