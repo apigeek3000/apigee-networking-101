@@ -53,7 +53,7 @@ To deploy networking components together with Apigee (all but the API Proxy), fo
   * `terraform init`
   * `terraform plan`
   * `terraform apply -auto-approve`
-4. Wait ~35-40 minutes for the script to complete and then move to the next section. 
+4. Wait ~35-40 minutes for the script to complete and then move to the next section.
 
 
 ## Deploy Apigee components
@@ -69,6 +69,18 @@ To test the API call to the following API, https://{{API hostname}}/v1/hello-use
 ```bash
 curl -X GET "https://{{API hostname}}/v1/hello-user"
 ```
+
+
+## Test Apigee
+
+Note: It can take 24 hours for the certificate to go active. From testing, it is usually much faster, less than 1 hour.
+
+Go to Network Services > Load Balancing and select the load balancer named "apigee-xlb". In the Frontend section, click the link under the heading "Certificate". Verify that the cert in the load balancer is Status of ACTIVE. Once it is active, find the domain which is based on a public IP address created in the script. It will be in the form of #-#-#-#.nip.io. To test, go to: 
+https://<domain>/hello-world
+
+Example: 
+https://34-117-214-37.nip.io/hello-world
+
 
 ## Conclusion & Cleanup
 
