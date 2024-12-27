@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-project_id = "prj-tfrm-apigee-final"
+project_id = ""
 
 ax_region = "us-central1"
 
@@ -45,11 +45,14 @@ apigee_environments = {
   }
 }
 
+
+# must add a domain here, though only nip.io domain will be used, so doesn't matter what you add here
 apigee_envgroups = {
   test = {
-    hostnames = ["apigeepub1.krgcplab.org"]
+    hostnames = ["apigeepub1.krgcplab.org"]  
   }
 }
+
 
 network = "apigee-network"
 
