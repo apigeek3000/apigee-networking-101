@@ -53,7 +53,7 @@ To deploy networking components together with Apigee (all but the API Proxy), fo
   * `terraform init`
   * `terraform plan`
   * `terraform apply -auto-approve`
-4. Wait ~35-40 minutes for the script to complete and then mvoe to the next section. 
+4. Wait ~35-40 minutes for the script to complete and then move to the next section. 
 
 
 ## Deploy Apigee components
