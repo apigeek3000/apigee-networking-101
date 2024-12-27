@@ -95,3 +95,8 @@ To clean up the artifacts created run the following to delete your sample Apigee
 source ./env.sh
 ./terraform/clean-up/clean-up-hello-user.sh
 ```
+
+At the command prompt in the Terraform directory, run:
+`terraform destroy -auto-approve`
+
+Wait ~15-25 minutes for the components created by the Terraform script to be removed. You'll see a message similar to "Destroy complete!" 

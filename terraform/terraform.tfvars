@@ -16,6 +16,9 @@
 
 project_id = ""
 
+# Since this is a Proof of Concept / PoC-ready script, no need to change settings below. Changing will customize the setup. 
+# Full testing has not been done on customization, so if you customize and encounter errors, please report them and the suggestion is to return to values provided to get the script working.  
+
 ax_region = "us-central1"
 
 apigee_instances = {
