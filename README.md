@@ -17,7 +17,7 @@ This includes deployment scripts for an Apigee PayG org with various methods of 
 
 1. Clone the this repo to your machine
 
-```bash
+```sh
 git clone https://github.com/apigeek3000/apigee-networking-101.git
 ```
 
@@ -44,9 +44,13 @@ To deploy networking components together with Apigee (all but the API Proxy), fo
 1. Create a project in GCP, if not already created. Reference if needed [Creating and managing projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
 2. Set values in terraform.tfvars. project-id is the only value that needs to change to match the ID of the project created in step 1. Reference if needed for how to find project ID, see [Find the project name, number, and ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects)
 3. At the command prompt where you'll run the script, in the Terraform directory, run:
-  * `terraform init`
-  * `terraform plan`
-  * `terraform apply -auto-approve`
+
+```sh 
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
+
 4. Wait ~35-40 minutes for the script to complete. You'll see a message similar to "Apply complete!" and then move to the next section.
 
 
@@ -62,13 +66,13 @@ Next, let's deploy our hello-user proxy:
 
 Now from the `scripts` directory, source the `env.sh` file
 
-```bash
+```sh
 source ./env.sh
 ```
 
 2. Next run the following command to deploy the proxy:
 
-```bash
+```sh
 ./deploy/deploy-hello-user.sh
 ```
 
@@ -92,13 +96,15 @@ Congratulations! You've successfully deployed a pay-as-you-go Apigee organizatio
 
 To delete the Apigee artifact (hello-user proxy) created, from the `scripts` directory run the following commands:
 
-```bash
+```sh
 source ./env.sh
 ./clean-up/clean-up-hello-user.sh
 ```
 
 To delete the Apigee infrastructure (Apigee + networking) created, from the `terraform` directory run the following command:
 
-`terraform destroy -auto-approve`
+```sh
+terraform destroy -auto-approve
+```
 
 Wait ~15-25 minutes for the components created by the Terraform script to be removed. You'll see a message similar to "Destroy complete!" 
