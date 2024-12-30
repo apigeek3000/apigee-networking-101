@@ -29,16 +29,7 @@ gcloud auth application-default login
 ```
 
 
-## Deploy Apigee Organization
-
-To deploy Apigee X with only a basic internal ip endpoint, follow the [x-basic](https://github.com/apigee/terraform-modules/tree/main/samples/x-basic) guide
-
-You may find it easier to test Apigee with an external HTTPS endpoint. Follow one of the following guides if that's the case:
-- [x-l7xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-l7xlb)
-- [x-nb-psc-xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-nb-psc-xlb)
-
-
-## Deploy other Networking components
+## Deploy Apigee & Networking Components
 
 To deploy networking components together with Apigee (all but the API Proxy), follow this process:
 1. Create a project in GCP, if not already created. Reference if needed [Creating and managing projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
@@ -52,6 +43,10 @@ terraform apply -auto-approve
 ```
 
 4. Wait ~35-40 minutes for the script to complete. You'll see a message similar to "Apply complete!" and then move to the next section.
+
+### Apigee Terraform Supplemental
+
+You can find more Terraform solutions for Apigee X at the [Apigee Github](https://github.com/apigee/terraform-modules)
 
 
 ## Deploy Apigee components
