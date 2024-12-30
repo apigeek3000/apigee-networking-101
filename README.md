@@ -1,6 +1,7 @@
 # apigee-networking-101
 This includes deployment scripts for an Apigee PayG org with various methods of internal &amp; external networking enabled
 
+
 ## Prerequisites
 
 1. Full access to deploy an Apigee organization & it's networking components (TODO: Get more specific)
@@ -9,6 +10,8 @@ This includes deployment scripts for an Apigee PayG org with various methods of 
     * [gcloud SDK](https://cloud.google.com/sdk/docs/install)
     * unzip
     * curl
+    * terraform
+
 
 ## Setup instructions
 
@@ -25,17 +28,6 @@ gcloud auth login
 gcloud auth application-default login
 ```
 
-3. Edit the `env.sh` and configure the ENV vars
-
-* `PROJECT` the project where your Apigee organization is located
-* `APIGEE_HOST` the externally reachable hostname of the Apigee environment group that contains APIGEE_ENV
-* `APIGEE_ENV` the Apigee environment where the demo resources should be created
-
-Now source the `env.sh` file
-
-```bash
-source ./env.sh
-```
 
 ## Deploy Apigee Organization
 
@@ -44,6 +36,7 @@ To deploy Apigee X with only a basic internal ip endpoint, follow the [x-basic](
 You may find it easier to test Apigee with an external HTTPS endpoint. Follow one of the following guides if that's the case:
 - [x-l7xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-l7xlb)
 - [x-nb-psc-xlb](https://github.com/apigee/terraform-modules/tree/main/samples/x-nb-psc-xlb)
+
 
 ## Deploy other Networking components
 
@@ -59,16 +52,24 @@ To deploy networking components together with Apigee (all but the API Proxy), fo
 
 ## Deploy Apigee components
 
-Next, let's deploy our hello-user proxy. This proxy will include one `hello-user` proxy.
+Next, let's deploy our hello-user proxy:
+
+1. Edit the `env.sh` and configure the ENV vars
+
+* `PROJECT` the project where your Apigee organization is located
+* `APIGEE_HOST` the externally reachable hostname of the Apigee environment group that contains APIGEE_ENV
+* `APIGEE_ENV` the Apigee environment where the demo resources should be created
+
+Now from the `scripts` directory, source the `env.sh` file
 
 ```bash
-./terraform/deploy/deploy-hello-user.sh
+source ./env.sh
 ```
 
-To test the API call to the following API, https://{{API hostname}}/v1/hello-user, and substitute in your own API hostname or use the following curl command
+2. Next run the following command to deploy the proxy:
 
 ```bash
-curl -X GET "https://{{API hostname}}/v1/hello-user"
+./deploy/deploy-hello-user.sh
 ```
 
 
@@ -82,21 +83,22 @@ To test, put the nip.io domain into the browser, in this form:
 https://#-#-#-#.nip.io/v1/hello-user
 
 Example: 
-https://34-117-214-37.nip.io/v1/hello-user
+https://12-345-678-90.nip.io/v1/hello-user
 
 
 ## Conclusion & Cleanup
 
-Congratulations! You've successfully deployed a test Apigee enviornment
+Congratulations! You've successfully deployed a pay-as-you-go Apigee organization!
 
-To clean up the artifacts created run the following to delete your sample Apigee components:
+To delete the Apigee artifact (hello-user proxy) created, from the `scripts` directory run the following commands:
 
 ```bash
 source ./env.sh
-./terraform/clean-up/clean-up-hello-user.sh
+./clean-up/clean-up-hello-user.sh
 ```
 
-At the command prompt in the Terraform directory, run:
+To delete the Apigee infrastructure (Apigee + networking) created, from the `terraform` directory run the following command:
+
 `terraform destroy -auto-approve`
 
 Wait ~15-25 minutes for the components created by the Terraform script to be removed. You'll see a message similar to "Destroy complete!" 
