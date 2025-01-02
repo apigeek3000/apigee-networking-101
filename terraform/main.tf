@@ -18,6 +18,9 @@ locals {
   subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
+  psc_subnet_region_name = { for subnet in var.psc_ingress_subnets :
+    subnet.region => "${subnet.region}/${subnet.name}"
+  }
 }
 
 module "project" {
@@ -58,21 +61,27 @@ module "vpc" {
 }
 
 module "nip-development-hostname" {
-  source             = "github.com/apigee/terraform-modules//modules/nip-development-hostname"
+  source             = "github.com/apigee/terraform-modules/modules/nip-development-hostname"
   project_id         = module.project.project_id
   address_name       = "apigee-external"
   subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
+module "nip-development-hostname-psc" {
+  source             = "github.com/apigee/terraform-modules/modules/nip-development-hostname"
+  project_id         = module.project.project_id
+  address_name       = "apigee-external-psc"
+  subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
+}
 
 module "apigee-x-core" {
-  source              = "github.com/apigee/terraform-modules//modules/apigee-x-core"
+  source              = "github.com/apigee/terraform-modules/modules/apigee-x-core"
   project_id          = module.project.project_id
   ax_region           = var.ax_region
   apigee_environments = var.apigee_environments
   apigee_envgroups = {
     test = {
-      hostnames = [module.nip-development-hostname.hostname]
+      hostnames = [module.nip-development-hostname.hostname,module.nip-development-hostname-psc.hostname]
     }
   }
   apigee_instances    = var.apigee_instances
@@ -80,7 +89,7 @@ module "apigee-x-core" {
 }
 
 module "apigee-x-bridge-mig" {
-  source      = "github.com/apigee/terraform-modules//modules/apigee-x-bridge-mig"
+  source      = "github.com/apigee/terraform-modules/modules/apigee-x-bridge-mig"
   for_each    = var.apigee_instances
   project_id  = module.project.project_id
   network     = module.vpc.network.id
@@ -89,11 +98,43 @@ module "apigee-x-bridge-mig" {
   endpoint_ip = module.apigee-x-core.instance_endpoints[each.key]
 }
 
+
 module "mig-l7xlb" {
-  source          = "github.com/apigee/terraform-modules//modules/mig-l7xlb"
+  source          = "github.com/apigee/terraform-modules/modules/mig-l7xlb"
   project_id      = module.project.project_id
-  name            = "apigee-xlb"
+  name            = "apigee-xlb1"
   backend_migs    = [for _, mig in module.apigee-x-bridge-mig : mig.instance_group]
   ssl_certificate = [module.nip-development-hostname.ssl_certificate]
   external_ip     = module.nip-development-hostname.ip_address
+}
+
+module "psc-ingress-vpc" {
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
+  project_id              = module.project.project_id
+  name                    = var.psc_ingress_network
+  auto_create_subnetworks = false
+  subnets                 = var.psc_ingress_subnets
+}
+
+resource "google_compute_region_network_endpoint_group" "psc_neg" {
+  project               = var.project_id
+  for_each              = var.apigee_instances
+  name                  = "psc-neg-${each.value.region}"
+  region                = each.value.region
+  network               = module.psc-ingress-vpc.network.id
+  subnetwork            = module.psc-ingress-vpc.subnet_self_links[local.psc_subnet_region_name[each.value.region]]
+  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
+  psc_target_service    = module.apigee-x-core.instance_service_attachments[each.value.region]
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+module "nb-psc-l7xlb" {
+  source          = "github.com/apigee/terraform-modules/modules/nb-psc-l7xlb"
+  project_id      = module.project.project_id
+  name            = "apigee-xlb-psc"
+  ssl_certificate = [module.nip-development-hostname-psc.ssl_certificate]
+  external_ip     = module.nip-development-hostname-psc.ip_address
+  psc_negs        = [for _, psc_neg in google_compute_region_network_endpoint_group.psc_neg : psc_neg.id]
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-project_id = ""
+project_id = "prj-tfrm-apigee-final5"
 
 # Since this is a Proof of Concept / PoC-ready script, no need to change settings below. Changing will customize the setup. 
 # Full testing has not been done on customization, so if you customize and encounter errors, please report them and the suggestion is to return to values provided to get the script working.  
@@ -48,13 +48,23 @@ apigee_envgroups = {
   }
 }
 
-
 network = "apigee-network"
 
 exposure_subnets = [
   {
     name               = "apigee-exposure"
     ip_cidr_range      = "10.100.0.0/24"
+    region             = "us-central1"
+    secondary_ip_range = null
+  }
+]
+
+psc_ingress_network = "psc-ingress"
+
+psc_ingress_subnets = [
+  {
+    name               = "apigee-psc-euw1"
+    ip_cidr_range      = "10.101.0.0/24"
     region             = "us-central1"
     secondary_ip_range = null
   }
