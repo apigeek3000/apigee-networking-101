@@ -19,6 +19,21 @@ variable "project_id" {
   type        = string
 }
 
+variable "mig_nb" {
+  description = "Set to true to create a Apigee network bridge, which are proxies in a MIG behind a Load Balancer, to reach Apigee Northbound (client to Apigee)"
+  type        = bool
+}
+
+variable "psc_nb" {
+  description = "Set to true to create a PSC Backend / NEG behind a Load Balancer to reach Apigee Northbound (client to Apigee)"
+  type        = bool
+}
+
+variable "psc_sb_mig" {
+  description = "Set to true to create a PSC Endpoint, Service Attachment and Load Balancer for Apigee to reach Southhbound (client to Apigee)"
+  type        = bool
+}
+
 variable "ax_region" {
   description = "GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli)."
   type        = string
@@ -120,4 +135,43 @@ variable "psc_ingress_subnets" {
     secondary_ip_range = map(string)
   }))
   default = []
+}
+
+variable "backend_name" {
+  description = "Name for the Demo Backend"
+  type        = string
+  default     = "demo-backend"
+}
+
+variable "backend_network" {
+  description = "Peered Backend VPC name."
+  type        = string
+}
+
+variable "backend_region" {
+  description = "GCP Region Backend (ensure this matches backend_subnet.region)."
+  type        = string
+}
+
+variable "backend_subnet" {
+  description = "Subnet to host the backend service."
+  type = object({
+    name               = string
+    ip_cidr_range      = string
+    region             = string
+    secondary_ip_range = map(string)
+  })
+}
+
+variable "backend_psc_nat_subnet" {
+  description = "Subnet to host the PSC NAT."
+  type = object({
+    name          = string
+    ip_cidr_range = string
+  })
+}
+
+variable "psc_name" {
+  description = "PSC name."
+  type        = string
 }

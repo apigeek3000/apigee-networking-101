@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-project_id = "prj-tfrm-apigee-final5"
+project_id = ""
+
+mig_nb = true  # Set to true to create a Apigee network bridge, which are proxies in a MIG behind a Load Balancer, to reach Apigee Northbound (client to Apigee)
+psc_nb = true  # Set to true to create a PSC Backend / NEG behind a Load Balancer to reach Apigee Northbound (client to Apigee)
+
+psc_sb_mig = true
 
 # Since this is a Proof of Concept / PoC-ready script, no need to change settings below. Changing will customize the setup. 
 # Full testing has not been done on customization, so if you customize and encounter errors, please report them and the suggestion is to return to values provided to get the script working.  
@@ -44,7 +49,7 @@ apigee_environments = {
 # must add a domain here, though only nip.io domain will be used, so doesn't matter what you add here
 apigee_envgroups = {
   test = {
-    hostnames = ["example.com"]  
+    hostnames = ["example.com"]
   }
 }
 
@@ -72,3 +77,18 @@ psc_ingress_subnets = [
 
 peering_range = "10.0.0.0/22"
 support_range = "10.1.0.0/28"
+
+backend_network = "backend-network"
+backend_region  = "us-central1"
+backend_subnet = {
+  name               = "backend-uscentral1"
+  ip_cidr_range      = "10.200.0.0/28"
+  region             = "us-central1"
+  secondary_ip_range = null
+}
+backend_psc_nat_subnet = {
+  ip_cidr_range = "10.0.4.0/22"
+  name          = "psc-nat-us-central1"
+}
+
+psc_name = "apigeepscsb"
