@@ -29,6 +29,11 @@ if [ -z "$APIGEE_HOST" ]; then
   exit
 fi
 
+if [ -z "$PSC_DOMAIN" ]; then
+  echo "No PSC_DOMAIN variable set"
+  exit
+fi
+
 echo "Passed variable tests"
 
 TOKEN=$(gcloud auth print-access-token)
@@ -38,6 +43,9 @@ curl -s https://raw.githubusercontent.com/apigee/apigeecli/main/downloadLatest.s
 export PATH=$PATH:$HOME/.apigeecli/bin
 
 echo "Deploying Apigee artifacts..."
+
+echo "Updating proxy code with custom variables"
+sed -i -e "s/{{psc-domain}}/$PSC_DOMAIN/g" "$PWD/apiproxy/targets/private-psc.xml"
 
 echo "Creating and Deploying Apigee hello-user proxy..."
 REV=$(apigeecli apis create bundle -f ./apiproxy -n hello-user --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)

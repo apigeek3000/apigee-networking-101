@@ -17,5 +17,6 @@
 export PROJECT="example-gcp-project"
 export APIGEE_HOST="#-#-#-#.nip.io"
 export APIGEE_ENV="test"
+export PSC_DOMAIN="example-psc-domain.com"
 
 gcloud config set project $PROJECT
