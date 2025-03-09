@@ -18,8 +18,7 @@ project_id = ""
 
 mig_nb = true  # Set to true to create a Apigee network bridge, which are proxies in a MIG behind a Load Balancer, to reach Apigee Northbound (client to Apigee)
 psc_nb = true  # Set to true to create a PSC Backend / NEG behind a Load Balancer to reach Apigee Northbound (client to Apigee)
-
-psc_sb_mig = true
+psc_sb_mig = true # Set to true to create a PSC Backend behind Apigee to reach a southbound, private service (Apigee to backend service)
 
 # Since this is a Proof of Concept / PoC-ready script, no need to change settings below. Changing will customize the setup. 
 # Full testing has not been done on customization, so if you customize and encounter errors, please report them and the suggestion is to return to values provided to get the script working.  

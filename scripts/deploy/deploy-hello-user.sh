@@ -19,20 +19,28 @@ if [ -z "$PROJECT" ]; then
   exit
 fi
 
+# Optional Variable
+# if [ -z "$APIGEE_HOST" ]; then
+#   echo "No APIGEE_HOST variable set"
+#   exit
+# fi
+
+# Optional Variable
+# if [ -z "$APIGEE_PSC_HOST" ]; then
+#   echo "No APIGEE_PSC_HOST variable set"
+#   exit
+# fi
+
 if [ -z "$APIGEE_ENV" ]; then
   echo "No APIGEE_ENV variable set"
   exit
 fi
 
-if [ -z "$APIGEE_HOST" ]; then
-  echo "No APIGEE_HOST variable set"
-  exit
-fi
-
-if [ -z "$PSC_DOMAIN" ]; then
-  echo "No PSC_DOMAIN variable set"
-  exit
-fi
+# Optional Variable
+# if [ -z "$PSC_DOMAIN" ]; then
+#   echo "No PSC_DOMAIN variable set"
+#   exit
+# fi
 
 echo "Passed variable tests"
 
@@ -44,19 +52,28 @@ export PATH=$PATH:$HOME/.apigeecli/bin
 
 echo "Deploying Apigee artifacts..."
 
-echo "Updating proxy code with custom variables"
-sed -i -e "s/{{psc-domain}}/$PSC_DOMAIN/g" "$PWD/apiproxy/targets/private-psc.xml"
+if [ "$PSC_DOMAIN" ]; then
+  echo "Updating proxy code with custom variables"
+  sed -i -e "s/{{psc-domain}}/$PSC_DOMAIN/g" "$PWD/apiproxy/targets/private-psc.xml"
+fi
 
 echo "Creating and Deploying Apigee hello-user proxy..."
 REV=$(apigeecli apis create bundle -f ./apiproxy -n hello-user --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
 apigeecli apis deploy --wait --name hello-user --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN"
 
-# var is expected by integration test (apickli)
-export PROXY_URL="$APIGEE_HOST/v1/hello-user"
-
 echo " "
 echo "All the Apigee artifacts are successfully deployed!"
 
-echo " "
-echo "Your Proxy URL is: https://$PROXY_URL"
+if [ "$APIGEE_HOST" ]; then
+  export PROXY_URL="$APIGEE_HOST/v1/hello-user"
+  echo " "
+  echo "Your Proxy URL is: https://$PROXY_URL"
+fi
+
+if [ "$APIGEE_PSC_HOST" ]; then
+  export PROXY_PSC_URL="$APIGEE_PSC_HOST/v1/hello-user/private-psc"
+  echo " "
+  echo "Your Proxy PSC URL is: https://$PROXY_PSC_URL"
+fi
+
 echo " "
