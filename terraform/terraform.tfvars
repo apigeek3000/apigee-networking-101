@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-project_id = ""
+project_id = "prj-tfrm-apigee-final12"
 
 mig_nb = true  # Set to true to create a Apigee network bridge, which are proxies in a MIG behind a Load Balancer, to reach Apigee Northbound (client to Apigee)
 psc_nb = true  # Set to true to create a PSC Backend / NEG behind a Load Balancer to reach Apigee Northbound (client to Apigee)
@@ -26,7 +26,7 @@ psc_sb_mig = true # Set to true to create a PSC Backend behind Apigee to reach a
 ax_region = "us-central1"
 
 apigee_instances = {
-  usc1-instance = {
+  us-central1-instance = {
     region       = "us-central1"
     ip_range     = "10.0.0.0/22"
     environments = ["test"]
