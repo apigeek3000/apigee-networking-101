@@ -1,6 +1,7 @@
 # apigee-networking-101
 This includes deployment scripts for an Apigee PayG org with various methods of internal &amp; external networking enabled
 
+![architecture](./assets/architecture.jpg)
 
 ## Prerequisites
 
@@ -53,11 +54,12 @@ You can find more Terraform solutions for Apigee X at the [Apigee Github](https:
 
 Next, let's deploy our hello-user proxy:
 
-1. Edit the `env.sh` and configure the ENV vars
-
+1. Edit the `env.sh` and configure the ENV vars. Delete the relevant var line item if mig_nb, psc_nb, or psc_sb_mig is configured to false
 * `PROJECT` the project where your Apigee organization is located
-* `APIGEE_HOST` the externally reachable hostname of the Apigee environment group that contains APIGEE_ENV
+* `APIGEE_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via VPC peering (mig_nb)
+* `APIGEE_PSC_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via PSC (psc_nb)
 * `APIGEE_ENV` the Apigee environment where the demo resources should be created
+* `PSC_DOMAIN` the internally reachable hostname of the PSC endpoint which routes southbound from Apigee to a private backend service (psc_sb_mig)
 
 Now from the `scripts` directory, source the `env.sh` file
 
@@ -76,7 +78,7 @@ source ./env.sh
 
 Note: It can take 24 hours for the certificate to move to Status of ACTIVE. From testing, it is usually much faster, less than 1 hour. If you see Status of FAILED_NOT_VISIBLE, the certificate is needs more time to validate. See [Domain status](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#domain-status) for more information. 
 
-Go to Network Services > Load Balancing and select the load balancer named "apigee-xlb". In the Frontend section, click the link under the heading "Certificate". Verify that the cert in the load balancer is Status of ACTIVE. Once it is active, find the domain which is based on a public IP address created in the script. It will be in the form of #-#-#-#.nip.io. 
+Go to Network Services > Load Balancing and select your apigee load balancer(s). In the Frontend section, click the link under the heading "Certificate". Verify that the cert in the load balancer is Status of ACTIVE. Once it is active, find the domain which is based on a public IP address created in the script. It will be in the form of #-#-#-#.nip.io. 
 
 To test, put the nip.io domain into the browser, in this form: 
 https://#-#-#-#.nip.io/v1/hello-user
@@ -87,7 +89,7 @@ https://12-345-678-90.nip.io/v1/hello-user
 
 ## Conclusion & Cleanup
 
-Congratulations! You've successfully deployed a pay-as-you-go Apigee organization!
+Congratulations! You've successfully deployed a pay-as-you-go Apigee organization complete with both VPC peering and PSC for securing connections.
 
 To delete the Apigee artifact (hello-user proxy) created, from the `scripts` directory run the following commands:
 
