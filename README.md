@@ -13,7 +13,10 @@ This includes deployment scripts for an Apigee PayG org with various methods of 
     * curl
     * terraform
 
-Note: The Terraform script sets the Google Cloud org policy constraints/compute.requireShieldedVm to false at the project level, so the script may fail in highly regulated environments. 
+## Notes
+* The intent of this repo is to create a fixed environment for learning and demonstration, **not production**.
+* The Terraform script sets the Google Cloud org policy constraints/compute.requireShieldedVm to false at the project level, so the script may fail in highly regulated environments.
+* The actions taken by deploying this repo will add cost. To minimize costs, instructions are provided for how to teardown the demo environment. For more on cost, please refer to Google Cloud public pricing pages for components such as ApigeeX, External Load Balancers, Private Service Connect, Reserved Public IP Addresses, Data Transfer, Certificate Manager and Key Management Service. 
 
 ## Setup instructions
 
