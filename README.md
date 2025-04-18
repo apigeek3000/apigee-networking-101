@@ -13,6 +13,7 @@ This includes deployment scripts for an Apigee PayG org with various methods of 
     * curl
     * terraform
 
+Note: The Terraform script sets the Google Cloud org policy constraints/compute.requireShieldedVm to false at the project level, so the script may fail in highly regulated environments. 
 
 ## Setup instructions
 
