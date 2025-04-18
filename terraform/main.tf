@@ -71,7 +71,7 @@ resource "random_string" "random" {
 resource "google_kms_key_ring" "apigee_instance_keyring" {
   project    = var.project_id
   name       = "keyring-apigee-instance-${random_string.random.result}"
-  location   = var.apigee_instances.usc1-instance.region
+  location   = var.apigee_instances.us-central1-instance.region
   depends_on = [time_sleep.wait_60_seconds]
 }
 
