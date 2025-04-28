@@ -38,7 +38,7 @@ gcloud auth application-default login
 
 To deploy networking components together with Apigee (all but the API Proxy), follow this process:
 1. Create a project in GCP, if not already created. Reference if needed [Creating and managing projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-2. Rename example.tfvars to terraform.tfvars
+2. Make a copy of the example.tfvars file and rename it to terraform.tfvars
 3. In terraform.tfvars, add the value for the project ID. All other values can stay the same unless customization required, eg choosing a different region. Reference if needed for how to find project ID, see [Find the project name, number, and ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects)
 4. At the command prompt where you'll run the script, in the Terraform directory, run:
 
@@ -59,7 +59,7 @@ You can find more Terraform solutions for Apigee X at the [Apigee Github](https:
 
 Next, let's deploy our hello-user proxy:
 
-1. Edit the `env.sh` and configure the ENV vars. Delete the relevant var line item if mig_nb, psc_nb, or psc_sb_mig is configured to false
+1. Copy the `example.sh` file, rename the new file to `env.sh`, and configure the ENV vars. Delete the relevant var line item if mig_nb, psc_nb, or psc_sb_mig is configured to false
 * `PROJECT` the project where your Apigee organization is located
 * `APIGEE_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via VPC peering (mig_nb)
 * `APIGEE_PSC_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via PSC (psc_nb)
