@@ -9,12 +9,12 @@
     <Request/>
     <Response/>
   </PostFlow>
-  <RouteRule name="private-psc">
-    <TargetEndpoint>private-psc</TargetEndpoint>
-    <Condition>proxy.pathsuffix MatchesPath "/private-psc"</Condition>
+  <RouteRule name="external">
+    <TargetEndpoint>external</TargetEndpoint>
+    <Condition>proxy.pathsuffix MatchesPath "/external"</Condition>
   </RouteRule>
   <RouteRule name="default">
-    <TargetEndpoint>default</TargetEndpoint>
+    <TargetEndpoint>private-psc</TargetEndpoint>
   </RouteRule>
   <HTTPProxyConnection>
     <BasePath>/v1/hello-user</BasePath>

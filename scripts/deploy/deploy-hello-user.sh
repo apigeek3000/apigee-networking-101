@@ -68,12 +68,14 @@ if [ "$APIGEE_HOST" ]; then
   export PROXY_URL="$APIGEE_HOST/v1/hello-user"
   echo " "
   echo "Your Proxy URL is: https://$PROXY_URL"
+  echo "Add the proxy suffix /external to call the external southbound endpoint"
 fi
 
 if [ "$APIGEE_PSC_HOST" ]; then
   export PROXY_PSC_URL="$APIGEE_PSC_HOST/v1/hello-user/private-psc"
   echo " "
   echo "Your Proxy PSC URL is: https://$PROXY_PSC_URL"
+  echo "Add the proxy suffix /external to call the external southbound endpoint"
 fi
 
 echo " "
