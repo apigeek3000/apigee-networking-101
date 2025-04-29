@@ -54,7 +54,7 @@ echo "Deploying Apigee artifacts..."
 
 if [ "$PSC_DOMAIN" ]; then
   echo "Updating proxy code with custom variables"
-  sed -i -e "s/{{psc-domain}}/$PSC_DOMAIN/g" "$PWD/apiproxy/targets/private-psc.xml"
+  sed -i "" -e "s/{{psc-domain}}/$PSC_DOMAIN/g" "$PWD/apiproxy/targets/private-psc.xml"
 fi
 
 echo "Creating and Deploying Apigee hello-user proxy..."

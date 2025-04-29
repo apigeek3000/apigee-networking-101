@@ -19,3 +19,6 @@ terraform.tfstate.backup
 .vscode
 .DS_Store
 *.jar
+
+env.sh
+terraform.tfvars

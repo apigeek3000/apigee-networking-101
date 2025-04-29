@@ -91,6 +91,8 @@ https://#-#-#-#.nip.io/v1/hello-user
 Example: 
 https://12-345-678-90.nip.io/v1/hello-user
 
+To test out the private PSC path, put this URL into your browser
+https://#-#-#-#.nip.io/v1/hello-user/private-psc
 
 ## Conclusion & Cleanup
 
