@@ -55,16 +55,16 @@ terraform apply -auto-approve
 You can find more Terraform solutions for Apigee X at the [Apigee Github](https://github.com/apigee/terraform-modules)
 
 
-## Deploy Apigee components
+## Deploy & Test Apigee components
 
 Next, let's deploy our hello-user proxy:
 
 1. Copy the `example.sh` file, rename the new file to `env.sh`, and configure the ENV vars. Delete the relevant var line item if mig_nb, psc_nb, or psc_sb_mig is configured to false
-* `PROJECT` the project where your Apigee organization is located
-* `APIGEE_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via VPC peering (mig_nb)
-* `APIGEE_PSC_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via PSC (psc_nb)
-* `APIGEE_ENV` the Apigee environment where the demo resources should be created
-* `PSC_DOMAIN` the internally reachable hostname of the PSC endpoint which routes southbound from Apigee to a private backend service (psc_sb_mig)
+* `PROJECT` the project where your Apigee organization is located. Find GCP Project ID in Project Settings
+* `APIGEE_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via VPC peering (mig_nb). Find the Apigee Env Group hostname associated with the lb-nb-apigee-mig load balancer
+* `APIGEE_PSC_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via PSC (psc_nb). Find the Apigee Env Group hostname associated with the lb-nb-apigee-pscneg load balancer
+* `APIGEE_ENV` the Apigee environment where the demo resources should be created. Find in Apigee Environments
+* `PSC_DOMAIN` the internally reachable hostname of the PSC endpoint which routes southbound from Apigee to a private backend service (psc_sb_mig). Find in Apigee Endpoint Attachments (host column)
 
 Now from the `scripts` directory, source the `env.sh` file
 
@@ -78,21 +78,15 @@ source ./env.sh
 ./deploy/deploy-hello-user.sh
 ```
 
+3. Follow the URLs output by the deployment script to test your proxies. You now have two different external load balancers routing northbound to Apigee via either VPC Peering or PSC Endpoints. Both of these load balancers are capable of routing southbound through Apigee to either private or external backend endpoints.
 
-## Test Apigee
+
+## Network Debugging
 
 Note: It can take 24 hours for the certificate to move to Status of ACTIVE. From testing, it is usually much faster, less than 1 hour. If you see Status of FAILED_NOT_VISIBLE, the certificate needs more time to validate. See [Domain status](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#domain-status) for more information. 
 
 Go to Network Services > Load Balancing and select your apigee load balancer(s). In the Frontend section, click the link under the heading "Certificate". Verify that the cert in the load balancer is Status of ACTIVE. Once it is active, find the domain which is based on a public IP address created in the script. It will be in the form of #-#-#-#.nip.io. 
 
-To test, put the nip.io domain into the browser, in this form: 
-https://#-#-#-#.nip.io/v1/hello-user
-
-Example: 
-https://12-345-678-90.nip.io/v1/hello-user
-
-To test out the external path, put this URL into your browser
-https://#-#-#-#.nip.io/v1/hello-user/external
 
 ## Conclusion & Cleanup
 
