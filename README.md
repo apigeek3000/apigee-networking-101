@@ -59,7 +59,7 @@ You can find more Terraform solutions for Apigee X at the [Apigee Github](https:
 
 Next, let's deploy our hello-user proxy:
 
-1. Copy the `example.sh` file, rename the new file to `env.sh`, and configure the ENV vars. Delete the relevant var line item if mig_nb, psc_nb, or psc_sb_mig is configured to false
+1. In the `scripts` directory, copy the `example.sh` file, rename the new file to `env.sh`, and configure the ENV vars. Delete the relevant var line item if mig_nb, psc_nb, or psc_sb_mig is configured to false
 * `PROJECT` the project where your Apigee organization is located. Find GCP Project ID in Project Settings
 * `APIGEE_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via VPC peering (mig_nb). Find the Apigee Env Group hostname associated with the lb-nb-apigee-mig load balancer
 * `APIGEE_PSC_HOST` the externally reachable hostname of the load balancer which routes northbound to Apigee via PSC (psc_nb). Find the Apigee Env Group hostname associated with the lb-nb-apigee-pscneg load balancer
