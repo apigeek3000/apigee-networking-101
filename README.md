@@ -36,7 +36,7 @@ gcloud auth application-default login
 
 ## Deploy Apigee & Networking Components
 
-To deploy networking components together with Apigee (all but the API Proxy), follow this process:
+To deploy networking components together with Apigee (all but the API Proxy which cannot be automated by Terraform), follow this process:
 1. Create a project in GCP, if not already created. Reference if needed [Creating and managing projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
 2. Make a copy of the example.tfvars file and rename it to terraform.tfvars
 3. In terraform.tfvars, add the value for the project ID. All other values can stay the same unless customization required, eg choosing a different region. Reference if needed for how to find project ID, see [Find the project name, number, and ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects)
