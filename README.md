@@ -36,7 +36,7 @@ gcloud auth application-default login
 
 ## Deploy Apigee & Networking Components
 
-To deploy networking components together with Apigee (all but the API Proxy), follow this process:
+To deploy networking components together with Apigee (all but the API Proxy which cannot be automated by Terraform), follow this process:
 1. Create a project in GCP, if not already created. Reference if needed [Creating and managing projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
 2. Make a copy of the example.tfvars file and rename it to terraform.tfvars
 3. In terraform.tfvars, add the value for the project ID. All other values can stay the same unless customization required, eg choosing a different region. Reference if needed for how to find project ID, see [Find the project name, number, and ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects)
@@ -78,14 +78,14 @@ source ./env.sh
 ./deploy/deploy-hello-user.sh
 ```
 
-3. Follow the URLs output by the deployment script to test your proxies. You now have two different external load balancers routing northbound to Apigee via either VPC Peering or PSC Endpoints. Both of these load balancers are capable of routing southbound through Apigee to either private or external backend endpoints.
+3. You now have two different external load balancers routing northbound to Apigee via either VPC Peering or PSC Endpoints. Both of these load balancers are capable of routing southbound through Apigee to either private or external backend endpoints. Follow the URLs output by the deployment script to test your proxies. If there's an error, it is likely that not enough time has passed for the load balancer certs to go ACTIVE. See the Network Debugging section below.
 
 
 ## Network Debugging
 
-Note: It can take 24 hours for the certificate to move to Status of ACTIVE. From testing, it is usually much faster, less than 1 hour. If you see Status of FAILED_NOT_VISIBLE, the certificate needs more time to validate. See [Domain status](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#domain-status) for more information. 
+Note: It can take 24 hours for the certificate to move to Status of ACTIVE. From testing, it is usually much faster, less than 1 hour. If you see Statuses such as FAILED_NOT_VISIBLE or PROVISIONING, the certificate needs more time to validate. See [Domain status](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#domain-status) for more information. 
 
-Go to Network Services > Load Balancing and select your apigee load balancer(s). In the Frontend section, click the link under the heading "Certificate". Verify that the cert in the load balancer is Status of ACTIVE. Once it is active, find the domain which is based on a public IP address created in the script. It will be in the form of #-#-#-#.nip.io. 
+Go to Network Services > Load Balancing and select your apigee load balancer(s). In the Frontend section, click the link under the heading "Certificate". Verify that the cert in the load balancer is Status of ACTIVE. See images in Step 4 of [Validated TLS Cert Made Simpler: Testing Google Cloud External Load Balancers Without Owning a Domain](https://medium.com/google-cloud/validated-tls-cert-made-simpler-testing-google-cloud-external-load-balancers-without-owning-a-d5a972bac3b2) for how an ACTIVE cert should look. Once it is active, find the domain which is based on a public IP address created in the script. It will be in the form of #-#-#-#.nip.io. 
 
 
 ## Conclusion & Cleanup

@@ -15,8 +15,8 @@
 # limitations under the License.
 
 export PROJECT="example-gcp-project" # Find GCP Project ID in Project Settings
-export APIGEE_HOST="#-#-#-#.nip.io" # Find the Apigee Env Group hostname associated with the lb-nb-apigee-pscneg load balancer
-export APIGEE_PSC_HOST="#-#-#-#.nip.io" # Find the Apigee Env Group hostname associated with the lb-nb-apigee-mig load balancer
+export APIGEE_HOST="#-#-#-#.nip.io" # Find the Apigee Env Group hostname associated with the lb-nb-apigee-mig load balancer
+export APIGEE_PSC_HOST="#-#-#-#.nip.io" # Find the Apigee Env Group hostname associated with the lb-nb-apigee-pscneg load balancer
 export APIGEE_ENV="test" # Find in Apigee Environments
 export PSC_DOMAIN="#.#.#.#" # Find in Apigee Endpoint Attachments (host column)
 
