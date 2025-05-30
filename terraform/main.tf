@@ -38,7 +38,9 @@ module "project" {
   services = [
     "apigee.googleapis.com",
     "cloudkms.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
     "compute.googleapis.com",
+    "iam.googleapis.com",
     "servicenetworking.googleapis.com"
   ]
 }
