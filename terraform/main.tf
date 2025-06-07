@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+terraform {
+  required_version = ">= 1.8"
+
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.45.2"
+    }
+  }
+}
+
 locals {
   subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
