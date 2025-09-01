@@ -52,7 +52,7 @@ apigee_envgroups = {
   }
 }
 
-network = "apigee-network"
+network = "vpc-northbound-peering"
 
 exposure_subnets = [
   {
@@ -63,7 +63,7 @@ exposure_subnets = [
   }
 ]
 
-psc_ingress_network = "psc-ingress"
+psc_ingress_network = "vpc-northbound-psc"
 
 psc_ingress_subnets = [
   {
@@ -77,7 +77,7 @@ psc_ingress_subnets = [
 peering_range = "10.0.0.0/22"
 support_range = "10.1.0.0/28"
 
-backend_network = "backend-network"
+backend_network = "vpc-southbound-backend"
 backend_region  = "us-central1"
 backend_subnet = {
   name               = "backend-us-central1"
