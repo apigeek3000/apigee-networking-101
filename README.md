@@ -57,8 +57,7 @@ Error: Request `Create IAM Members roles/servicenetworking.serviceAgent serviceA
 
 ### Apigee Terraform Supplemental
 
-You can find more Terraform solutions for Apigee X at the [Apigee Github](https://github.com/apigee/terraform-modules)
-
+Optional: You can find more Terraform solutions for Apigee X at the [Apigee Github](https://github.com/apigee/terraform-modules). Note that this repository stands alone, so this link is provided only if interested to learn more. 
 
 ## Deploy & Test Apigee components
 
