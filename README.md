@@ -50,7 +50,7 @@ terraform apply -auto-approve
 
 5. Wait ~35-40 minutes for the script to complete. You'll see a message similar to "Apply complete!" and then move to the next section.
 
-Note, if you receive an error like the following, run terraform plan and terraform apply -auto-approve again:
+Note, if you receive an error like the following, run `terraform plan` and `terraform apply -auto-approve` again:
 
 Error: Request `Create IAM Members roles/servicenetworking.serviceAgent serviceAccount:service-176856107589@service-networking.iam.gserviceaccount.com for project "prj-apigee"` returned error: Error applying IAM policy for project "prj-apigee": Error setting IAM policy for project "prj-apigee": googleapi: Error 400: Service account service-176856107589@service-networking.iam.gserviceaccount.com does not exist., badRequest
 
