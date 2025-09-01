@@ -67,7 +67,7 @@ psc_ingress_network = "psc-ingress"
 
 psc_ingress_subnets = [
   {
-    name               = "apigee-psc-euw1"
+    name               = "apigee-psc-us-central1"
     ip_cidr_range      = "10.101.0.0/24"
     region             = "us-central1"
     secondary_ip_range = null
@@ -80,7 +80,7 @@ support_range = "10.1.0.0/28"
 backend_network = "backend-network"
 backend_region  = "us-central1"
 backend_subnet = {
-  name               = "backend-uscentral1"
+  name               = "backend-us-central1"
   ip_cidr_range      = "10.200.0.0/28"
   region             = "us-central1"
   secondary_ip_range = null
